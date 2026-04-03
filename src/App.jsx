@@ -1,24 +1,113 @@
+import { useState, useEffect } from 'react'
 import './App.css'
 import Dog from './components/Dog'
 import { Canvas } from '@react-three/fiber'
+import gsap from "gsap"
+import { useGSAP } from '@gsap/react'
+import * as THREE from 'three'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+
+gsap.registerPlugin(ScrollTrigger)
 
 function App() {
+  const [activeSection, setActiveSection] = useState('section-1')
 
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }, { threshold: 0.2 })
+
+    document.querySelectorAll('.story-section').forEach((sec) => observer.observe(sec))
+    return () => observer.disconnect()
+  }, [])
+
+  useGSAP(() => {
+    const sections = gsap.utils.toArray('.story-section');
+    sections.forEach((sec) => {
+      const q = gsap.utils.selector(sec);
+      gsap.from(q('.section-title, .section-desc, .display-title, .hero-p, .quote-text, .quote-author'), {
+        y: 60,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sec,
+          start: "top 75%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    const titles = gsap.utils.toArray('.title');
+    titles.forEach((titleElem) => {
+      gsap.from(titleElem, {
+        y: 60,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: titleElem,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+  }, []);
 
   return (
     <>
-      <main>
+      <main data-section={activeSection}>
+        <div className="noise-overlay"></div>
+        <nav className="global-nav">
+          <div className="nav-elem logo-group">
+            <img src="/logo.png" alt="Clever Names" className="logo-image" />
+            <div className="logo-text">
+              <div className="company-name">Clever Names</div>
+              <div className="company-slogan">we only celebrate failure because success is a norm</div>
+            </div>
+          </div>
+          <div className="nav-center-wrapper">
+            <div className="nav-center">
+              <a href="#overview" className="nav-link">Overview</a>
+              <a href="#focus" className="nav-link">Focus</a>
+              <a href="#products" className="nav-link">Products</a>
+              <a href="#technology" className="nav-link">Technology</a>
+              <a href="#pricing" className="nav-link">Pricing</a>
+            </div>
+            <div className="nav-badge">
+              <span className="badge-dot"></span>
+              <span className="badge-text">South Africa · Africa-Focused · Global-Ready</span>
+            </div>
+          </div>
+          <div className="nav-right">
+            <button className="cta-button">Get Started</button>
+          </div>
+        </nav>
         <div className="images">
-          <img id='tomorrowland' src="/tommorowland.png" alt="" />
-          <img id='navy-pier' src="/navy-pier.png" alt="" />
-          <img id='msi-chicago' src="/msi-chicago.png" alt="" />
-          <img id='phone' src="/phone.png" alt="" />
-          <img id='kikk' src="/kikk.png" alt="" />
+          <img id='background-l' src="/background-l.png" alt="" />
+          <img id='branches_diffuse' src="/branches_diffuse.jpeg" alt="" />
+          <img id='branches_normals' src="/branches_normals.jpeg" alt="" />
+          <img id='dog_normals' src="/dog_normals.jpg" alt="" />
           <img id='kennedy' src="/kennedy.png" alt="" />
+          <img id='kikk' src="/kikk.png" alt="" />
+          <img id='msi-chicago' src="/msi-chicago.png" alt="" />
+          <img id='navy-pier' src="/navy-pier.png" alt="" />
           <img id='opera' src="/opera.png" alt="" />
+          <img id='phone' src="/phone.png" alt="" />
         </div>
         <Canvas
           id='canvas-elem'
+          camera={{ position: [0, 0, 0.55], fov: 45 }}
+          gl={{
+            toneMapping: Number(THREE.ReinhardToneMapping),
+            outputColorSpace: THREE.SRGBColorSpace
+          }}
           style={{
             height: "100vh",
             width: "100vw",
@@ -29,90 +118,265 @@ function App() {
           }} >
           <Dog />
         </Canvas>
-        <section id='section-1' >
-          <nav>
-            <div className="nav-elem">
-              <svg xmlns="http://www.w3.org/2000/svg" fill='white' viewBox="0 0 401.23099 116.838">
-                <path d="M97.9212,84.4793c0-13.21301-7.2132-23.3924-25.54961-23.3924h-19.6172v46.7851h19.6172c18.3364,0,25.54961-10.1797,25.54961-23.3927Zm-13.3478,0c0,9.2356-5.1908,12.6737-12.404,12.6737h-6.6739v-25.3474h6.6739c7.2132,0,12.404,3.4381,12.404,12.6737Z"></path>
-                <path d="M100.972,107.872h37.078v-10.6516h-24.33701v-8.0222h21.37v-10.112h-21.37v-7.348h23.73v-10.6513h-36.47099v46.7851Z"></path>
-                <path d="M181.211,77.3335c0-11.7973-7.55-16.2466-19.28-16.2466h-20.29199v46.7851h12.741v-14.2919h7.55099c11.73,0,19.28-4.4493,19.28-16.2466Zm-13.213,0c0,4.5841-2.157,6.47169-7.34801,6.47169h-6.26999v-12.9434h6.26999c5.19101,0,7.34801,1.8876,7.34801,6.4717Z"></path>
-                <path d="M182.601,72.0079h14.76401v35.86411h12.741v-35.86411h14.763v-10.921h-42.26801v10.921Z"></path>
-                <path d="M219.575,101.66c0,4.23399,3.427,7.661,7.661,7.661,4.233,0,7.694-3.427,7.694-7.661,0-4.23331-3.461-7.69421-7.694-7.69421-4.23399,0-7.661,3.4609-7.661,7.69421Zm1.478,0c0-3.4941,2.755-6.35011,6.183-6.35011,3.427,0,6.216,2.856,6.216,6.35011,0,3.495-2.789,6.31699-6.216,6.31699-3.42799,0-6.183-2.822-6.183-6.31699Zm2.58701,3.797h2.42v-2.621h1.377l1.44501,2.621h2.621l-1.74701-3.091c.806-.336,1.41101-1.243,1.41101-2.251,0-1.781-1.14201-2.6211-3.091-2.6211h-4.436v7.9631Zm5.07401-5.309c0,.639-.403,.908-1.17601,.908h-1.478v-1.6804h1.478c.77301,0,1.17601,.2016,1.17601,.7724Z"></path>
-                <path d="M48.0438,24.4527C48.0438,11.1965,40.807,.98386,22.4106,.98386H2.72925V47.9216H22.4106c18.3964,0,25.6332-10.2127,25.6332-23.4689Zm-13.3915,0c0,9.2658-5.2078,12.7152-12.4446,12.7152h-6.6957V11.7376h6.6957c7.2368,0,12.4446,3.4493,12.4446,12.7151Z"></path>
-                <path d="M99.8921,24.4527C99.8921,9.84386,90.8292,.17226,75.2734,.17226s-24.6186,9.6716-24.6186,24.28044,9.0629,24.2805,24.6186,24.2805,24.6187-9.6716,24.6187-24.2805Zm-13.4591,0c0,7.8455-4.2609,13.5944-11.1596,13.5944s-11.1595-5.7489-11.1595-13.5944,4.2609-13.5943,11.1595-13.5943,11.1596,5.7488,11.1596,13.5943Z"></path>
-                <path d="M175.40601,48.7332c12.715,0,20.696-5.9517,20.696-15.4205,0-7.7102-5.073-11.7006-12.98601-13.3238l-10.145-2.0966c-4.058-.8116-5.27499-2.0967-5.27499-4.1933,0-2.2996,2.367-4.1933,6.62801-4.1933,4.73399,0,8.183,2.029,8.52199,6.2899h12.57901c0-11.22716-9.468-15.62334-21.16901-15.62334-11.22699,0-19.411,5.61359-19.411,14.74414,0,7.7102,5.073,11.7006,12.98599,13.3238l10.145,2.0967c4.058,.8116,5.27501,2.0966,5.27501,4.1932,0,2.9759-2.908,4.6668-7.507,4.6668-5.20801,0-8.99501-2.7054-9.26601-7.575h-12.58c.27101,10.5508,7.44,17.1113,21.50801,17.1113Z"></path>
-                <path d="M196.80901,11.9405h14.812V47.9216h12.782V11.9405h14.812V.98386h-42.40599V11.9405Z"></path>
-                <path d="M263.302,48.7332c13.59399,0,21.16901-6.1547,21.16901-20.4254V.98386h-12.78302V28.3078c0,6.29-3.17899,9.5364-8.38599,9.5364-5.276,0-8.455-3.2464-8.455-9.5364V.98386h-12.782V28.3078c0,14.2707,7.575,20.4254,21.237,20.4254Z"></path>
-                <path d="M332.995,24.4527c0-13.2562-7.237-23.46884-25.633-23.46884h-19.68201V47.9216h19.68201c18.396,0,25.633-10.2127,25.633-23.4689Zm-13.39099,0c0,9.2658-5.20801,12.7152-12.44501,12.7152h-6.69598V11.7376h6.69598c7.237,0,12.44501,3.4493,12.44501,12.7151Z"></path>
-                <path d="M335.90399,47.9216h12.78302V.98386h-12.78302V47.9216Z"></path>
-                <path d="M401.23099,24.4527c0-14.60884-9.06299-24.28044-24.61899-24.28044s-24.61899,9.6716-24.61899,24.28044,9.06299,24.2805,24.61899,24.2805,24.61899-9.6716,24.61899-24.2805Zm-13.45999,0c0,7.8455-4.26001,13.5944-11.159,13.5944s-11.16-5.7489-11.16-13.5944,4.26102-13.5943,11.16-13.5943,11.159,5.7488,11.159,13.5943Z"></path>
-                <path d="M128.905,30.638h10.41501c-1.21701,4.802-5.74901,7.5074-11.22701,7.5074-7.169,0-11.904-5.2754-11.904-13.8649,0-7.8455,4.32899-13.5944,11.769-13.5944,4.464,0,8.31899,1.8938,9.40099,6.1547h13.59401c-1.48801-10.68614-10.88901-16.8408-23.26601-16.8408-15.758,0-24.95699,9.67161-24.95699,24.2805,0,14.6765,9.46899,24.2805,22.184,24.2805,7.237,0,11.76801-2.7054,14.88-6.5605v5.7489h11.29399V21.3046h-22.183v9.3334Z"></path>
-                <path d="M30.4351,61.1758h-10.4155L0,116.838H10.3479L30.4351,61.1758Z"></path>
-              </svg>
-            </div>
-            <div className="nav-elem">
-              <i className="ri-arrow-right-s-line"></i> Our Show reel
-            </div>
-            <div className="nav-elem">
-              <i className="ri-menu-3-line"></i>
-            </div>
-          </nav>
+        <section id='section-1' className="story-section">
           <div className="middle">
             <div className="left">
-              <h1>WE <br /> Make <br /> Good <br />Shit</h1>
+              <h1 className="display-title">ARCHITECTING <br /> AFRICA'S <span className="highlight" style={{ color: '#00d2ff' }}>INTELLIGENT</span><br /> FUTURE</h1>
             </div>
-            <div className="right"></div>
           </div>
-          <div className="bottom">
+          <div className="bottom hero-bottom" style={{ marginBottom: '8vh' }}>
             <div className="left"></div>
-            <div className="right">
-              <p>
-                Dogstudio is a multidisciplinary <br />
-                creative studio at the intersection <br />
-                of art, design and technology.
+            <div className="right" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+              <small className="pill" style={{ color: '#00d2ff', opacity: 0.6, letterSpacing: '4px', fontWeight: 600, fontSize: '0.65rem', textTransform: 'uppercase', marginBottom: '16px', border: '1px solid rgba(0, 210, 255, 0.2)', padding: '4px 12px', borderRadius: '4px' }}>COMPANY OVERVIEW</small>
+              <p className="hero-p" style={{ fontFamily: 'Inter', fontSize: '1.5rem', fontWeight: 300, lineHeight: 1.6, color: '#e2e8f0', maxWidth: '650px' }}>
+                <span style={{ fontWeight: 700 }}>Clever Names XNTJ</span> is the vanguard defining the future of African autonomy. We are architecting the absolute <span style={{ color: '#00d2ff', fontWeight: 500 }}>sovereign intelligence layer</span> for emerging markets, engineering the high-octane AI infrastructure that transforms raw institutional data into the continent's most <span style={{ color: '#ffffff', fontWeight: 600 }}>unstoppable and scalable power.</span>
               </p>
+              <div className="hero-tags" style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                <span className="tag-pill">Retrieval-Augmented Generation</span>
+                <span className="tag-pill">Conversational AI</span>
+                <span className="tag-pill">SaaS Platforms</span>
+                <span className="tag-pill">Cloud Infrastructure</span>
+                <span className="tag-pill">Emerging Markets</span>
+                <span className="tag-pill">Institutional Consultancy</span>
+                <span className="tag-pill">Web Development</span>
+                <span className="tag-pill">Sovereign AI Strategy</span>
+              </div>
             </div>
           </div>
-
-          <div className="first-line"></div>
-          <div className="second-line"></div>
-
         </section>
-        <section id='section-2' >
-          <div className="titles">
-            <div img-title="tomorrowland" className="title">
-              <small>2020 - ONGOING</small>
-              <h1>Tomorrowland</h1>
-            </div>
-            <div img-title="navy-pier" className="title">
-              <small>2020 - ONGOING</small>
-              <h1> Navy Pier</h1>
-            </div>
-            <div img-title="msi-chicago" className="title">
-              <small>2020 - ONGOING</small>
-              <h1>  MSI Chicago</h1>
-            </div>
-            <div img-title="phone" className="title">
-              <small>2020 - ONGOING</small>
-              <h1>This Was Louise’s Phone</h1>
-            </div>
-            <div img-title="kikk" className="title">
-              <small>2020 - ONGOING</small>
-              <h1>KIKK Festival 2018</h1>
-            </div>
-            <div img-title="kennedy" className="title">
-              <small>2020 - ONGOING</small>
-              <h1>The Kennedy Center</h1>
-            </div>
-            <div img-title="opera" className="title">
-              <small>2020 - ONGOING</small>
-              <h1>Royal Opera Of Wallonia</h1>
-            </div>
+
+        <section id='section-2' className="story-section">
+          <div className="focus-content" style={{ width: '45vw', marginLeft: '50vw', paddingTop: '28vh', paddingBottom: '10vh' }}>
+            <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}>THE CORE MISSION</small>
+            <h2 className="section-title" style={{ fontFamily: 'Space Grotesk', fontSize: '4rem', lineHeight: 1.05, marginTop: '24px', fontWeight: 700 }}>Computing the <br /> Continent's Potential.</h2>
+            <p className="section-desc" style={{ fontFamily: 'Inter', fontSize: '1.3rem', fontWeight: 300, color: '#94a3b8', marginTop: '24px', lineHeight: 1.5 }}>Beyond mere consultation, we build the underlying engine layer. Our platforms enable African institutions to own their computation, ensuring that success is not just an outcome, but a structural norm.</p>
           </div>
 
-
+          <div className="build-container" style={{ marginLeft: '10vw', width: '80vw', paddingBottom: '20vh' }}>
+            <h3 className="build-label" style={{ fontFamily: 'Space Grotesk', fontSize: '2.5rem', fontWeight: 600, marginBottom: '60px', color: '#ffffff' }}>What We <span style={{ color: '#00d2ff' }}>Build:</span></h3>
+            <div className="build-grid">
+              <div className="build-card">
+                <i className="ri-search-eye-line icon-box"></i>
+                <h4>Retrieval-Augmented Generation</h4>
+                <p>Document-grounded AI that retrieves relevant context before generating responses — ensuring accuracy and domain specificity.</p>
+              </div>
+              <div className="build-card">
+                <i className="ri-chat-private-line icon-box"></i>
+                <h4>Conversational AI Infrastructure</h4>
+                <p>End-to-end conversational systems engineered for institutional deployment, from intake to structured output.</p>
+              </div>
+              <div className="build-card">
+                <i className="ri-bar-chart-box-line icon-box"></i>
+                <h4>Structured Data Intelligence</h4>
+                <p>Pipelines that transform raw, unstructured inputs into clean, structured, decision-ready intelligence.</p>
+              </div>
+              <div className="build-card">
+                <i className="ri-flashlight-line icon-box"></i>
+                <h4>AI Workflow Automation</h4>
+                <p>Intelligent automation layers that integrate directly into existing institutional processes and workflows.</p>
+              </div>
+              <div className="build-card">
+                <i className="ri-bank-line icon-box"></i>
+                <h4>Institutional-Grade SaaS</h4>
+                <p>Production-ready platforms built for the reliability, security, and compliance standards of institutional environments.</p>
+              </div>
+              <div className="build-card">
+                <i className="ri-cloud-line icon-box"></i>
+                <h4>Cloud-Based Scalable Architecture</h4>
+                <p>Secure, scalable cloud infrastructure designed to grow from pilot deployments to continental scale.</p>
+              </div>
+            </div>
+          </div>
         </section>
-        <section id='section-3' ></section>
+
+        <section id='section-3' className="story-section">
+          <div className="portfolio-content" style={{ paddingTop: '15vh' }}>
+            <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', marginLeft: '10vw', textTransform: 'uppercase' }}>TECHNICAL FRONTIERS</small>
+            <div className="titles">
+              <div img-title="background-l" className="title">
+                <small>01 — PLATFORM</small>
+                <h1>Cognitive Base</h1>
+              </div>
+              <div img-title="branches_diffuse" className="title">
+                <small>02 — RESEARCH</small>
+                <h1>Deep Branch</h1>
+              </div>
+              <div img-title="branches_normals" className="title">
+                <small>03 — FOUNDATION</small>
+                <h1>Vector Mapping</h1>
+              </div>
+              <div img-title="dog_normals" className="title">
+                <small>04 — VISION</small>
+                <h1>Neural Optics</h1>
+              </div>
+              <div img-title="kennedy" className="title">
+                <small>05 — INFRASTRUCTURE</small>
+                <h1>Model Ops</h1>
+              </div>
+              <div img-title="kikk" className="title">
+                <small>06 — INTEGRATION</small>
+                <h1>API Gateway</h1>
+              </div>
+              <div img-title="msi-chicago" className="title">
+                <small>07 — ENTERPRISE</small>
+                <h1>Consenso</h1>
+              </div>
+              <div img-title="navy-pier" className="title">
+                <small>08 — HEALTHCARE</small>
+                <h1>Cura Health</h1>
+              </div>
+              <div img-title="opera" className="title">
+                <small>09 — DEPLOYMENT</small>
+                <h1>African AI</h1>
+              </div>
+              <div img-title="phone" className="title">
+                <small>10 — DATA PIPELINE</small>
+                <h1>Data Engine</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id='section-4' className="story-section">
+          <div className="vision-quote" style={{ width: '65vw', margin: '0 auto', textAlign: 'center', paddingTop: '32vh' }}>
+            <h2 className="quote-text" style={{ fontFamily: '"Space Grotesk"', fontSize: '3.2rem', fontWeight: 300, lineHeight: 1.25, letterSpacing: '-1px' }}>
+              "We are not merely building technology; we are architecting the <span style={{ color: '#00d2ff' }}>sovereign intelligence</span> that allows African institutions to operate with the clarity they've always deserved."
+            </h2>
+            <div className="quote-author-wrapper" style={{ marginTop: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
+              <p className="quote-author" style={{ fontFamily: 'Inter', color: '#ffffff', fontSize: '1.1rem', fontWeight: 600 }}>Jabulani Dube</p>
+              <p style={{ fontFamily: 'Inter', color: '#64748b', fontSize: '0.9rem', letterSpacing: '1px', textTransform: 'uppercase' }}>Chief Infrastructure Architect</p>
+            </div>
+          </div>
+        </section>
+
+        <section id='section-5' className="story-section">
+          <div className="tech-content" style={{ width: '45vw', marginLeft: '10vw', paddingTop: '20vh' }}>
+            <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}>TECHNOLOGY ARCHITECTURE</small>
+            <h2 className="section-title" style={{ fontFamily: 'Space Grotesk', fontSize: '4rem', marginTop: '24px', lineHeight: 1.0, fontWeight: 700 }}>The Technical <br /> Foundation</h2>
+            <p className="section-desc" style={{ fontFamily: 'Inter', fontSize: '1.2rem', color: '#94a3b8', marginTop: '24px', fontWeight: 300, lineHeight: 1.5, maxWidth: '540px' }}>
+              All platforms are engineered from the ground up by our specialized in-house team, ensuring architectural consistency and technical precision across our entire infrastructure.
+            </p>
+          </div>
+
+          <div className="foundation-container" style={{ marginLeft: '10vw', width: '80vw', marginTop: '60px', paddingBottom: '20vh' }}>
+            <div className="foundation-grid">
+              <div className="foundation-card">
+                <span className="foundation-number">01</span>
+                <div className="foundation-text">
+                  <h4>RAG Frameworks</h4>
+                  <p>Retrieval-Augmented Generation</p>
+                </div>
+              </div>
+              <div className="foundation-card">
+                <span className="foundation-number">02</span>
+                <div className="foundation-text">
+                  <h4>Vector Database Search</h4>
+                  <p>Semantic similarity retrieval</p>
+                </div>
+              </div>
+              <div className="foundation-card">
+                <span className="foundation-number">03</span>
+                <div className="foundation-text">
+                  <h4>Secure Cloud Infrastructure</h4>
+                  <p>Scalable, enterprise-grade</p>
+                </div>
+              </div>
+              <div className="foundation-card">
+                <span className="foundation-number">04</span>
+                <div className="foundation-text">
+                  <h4>Conversational AI Engines</h4>
+                  <p>Dialogue management & NLU</p>
+                </div>
+              </div>
+              <div className="foundation-card">
+                <span className="foundation-number">05</span>
+                <div className="foundation-text">
+                  <h4>Structured Output Pipelines</h4>
+                  <p>Unstructured &rarr; actionable data</p>
+                </div>
+              </div>
+              <div className="foundation-card">
+                <span className="foundation-number">06</span>
+                <div className="foundation-text">
+                  <h4>Workflow-Integrated SaaS</h4>
+                  <p>Institutional deployment-ready</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id='section-strategy' className="story-section">
+          <div className="strategy-content" style={{ width: '80vw', marginLeft: '10vw', paddingTop: '15vh' }}>
+            <h2 className="section-title" style={{ fontFamily: 'Space Grotesk', fontSize: '3.5rem', fontWeight: 700, color: '#ffffff', marginBottom: '24px' }}>Africa&rsquo;s AI Infrastructure Company</h2>
+            <p className="section-desc" style={{ fontFamily: 'Inter', fontSize: '1.25rem', fontWeight: 300, color: '#94a3b8', lineHeight: 1.6, maxWidth: '700px', marginBottom: '60px' }}>
+              Clever Names XNTJ aims to become a leading African AI infrastructure company, building sector-specific intelligence layers that improve lives at scale.
+            </p>
+
+            <div className="strategy-grid">
+              <div className="strategy-column">
+                <h3 className="column-title">Impact Areas</h3>
+                <ul className="impact-list">
+                  <li>Educational access and quality improvement</li>
+                  <li>Healthcare system efficiency in low-resource settings</li>
+                  <li>Institutional decision-making intelligence</li>
+                  <li>Human capital development at scale</li>
+                </ul>
+              </div>
+
+              <div className="strategy-column">
+                <h3 className="column-title">Long-Term Strategy</h3>
+                <ul className="strategy-list">
+                  <li>Institutional partnerships with universities & hospitals</li>
+                  <li>Public sector integration across African governments</li>
+                  <li>Scalable B2B SaaS licensing model</li>
+                  <li>AI systems grounded in local African contexts</li>
+                  <li>Africa-first expansion before global scaling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id='section-6' className="story-section contact-section">
+          <div className="contact-container" style={{ paddingTop: '2vh' }}>
+            <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}>THE NEXT CHAPTER</small>
+            <h1 className="contact-title display-title" style={{ fontFamily: 'Space Grotesk', fontSize: '5.5rem', fontWeight: 800, marginTop: '24px', lineHeight: 0.95, textTransform: 'uppercase', textShadow: '0 15px 40px rgba(0,0,0,0.6)' }}>Shape the <br /><span className="highlight" style={{ color: '#00d2ff' }}>Continent.</span></h1>
+            <a href="mailto:hello@clevernames.com" className="contact-btn" style={{ marginTop: '60px' }}>
+              <span>hello@clevernames.com</span>
+              <i className="ri-arrow-right-up-line"></i>
+            </a>
+          </div>
+
+          <footer className="footer">
+            <div className="footer-top">
+              <div className="footer-col">
+                <h4>Johannesburg</h4>
+                <p>Rosebank Link, 173 Oxford Rd<br />Rosebank, Johannesburg, 2196</p>
+              </div>
+              <div className="footer-col">
+                <h4>Cape Town</h4>
+                <p>Workshop 17, Watershed<br />V&A Waterfront, Cape Town, 8002</p>
+              </div>
+              <div className="footer-col">
+                <h4>Follow Us</h4>
+                <div className="social-icons">
+                  <a href="#" aria-label="LinkedIn"><i className="ri-linkedin-fill"></i></a>
+                  <a href="#" aria-label="Twitter"><i className="ri-twitter-x-fill"></i></a>
+                  <a href="#" aria-label="GitHub"><i className="ri-github-fill"></i></a>
+                  <a href="#" aria-label="Instagram"><i className="ri-instagram-line"></i></a>
+                </div>
+              </div>
+            </div>
+            <div className="footer-bottom">
+              <p>&copy; {new Date().getFullYear()} Clever Names XNTJ Pty Ltd. All rights reserved.</p>
+              <div className="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+              </div>
+            </div>
+          </footer>
+        </section>
       </main>
     </>
   )
