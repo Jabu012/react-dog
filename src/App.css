@@ -1603,3 +1603,171 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
 .form-submit-btn:hover i {
   transform: translate(3px, -3px);
 }
+
+/* ─── Calendar Booking Styles ─────────────────────────── */
+.calendar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+}
+
+.calendar-nav-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.25rem;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.calendar-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.calendar-month-year {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.calendar-weekday {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(0, 210, 255, 0.6);
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.calendar-day {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  padding: 8px 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.01);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.calendar-day:hover:not(.disabled):not(.selected) {
+  background: rgba(0, 210, 255, 0.08);
+  border-color: rgba(0, 210, 255, 0.2);
+  color: #00d2ff;
+}
+
+.calendar-day.disabled {
+  opacity: 0.15;
+  cursor: not-allowed;
+}
+
+.calendar-day.selected {
+  background: linear-gradient(135deg, #00d2ff 0%, #0099cc 100%);
+  color: #050d1a;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 210, 255, 0.3);
+}
+
+.time-slots-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.time-slots-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.time-slot {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  padding: 8px 4px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.time-slot:hover:not(.selected) {
+  background: rgba(0, 210, 255, 0.06);
+  border-color: rgba(0, 210, 255, 0.25);
+  color: #00d2ff;
+}
+
+.time-slot.selected {
+  background: linear-gradient(135deg, #00d2ff 0%, #0099cc 100%);
+  color: #050d1a;
+  font-weight: 700;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0, 210, 255, 0.25);
+}
+
+.modal-actions-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
+}
+
+.form-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 1rem 1.5rem;
+  border-radius: 50px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-back-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+}
