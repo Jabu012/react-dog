@@ -6,7 +6,7 @@ import gsap from "gsap"
 import { useGSAP } from '@gsap/react'
 import * as THREE from 'three'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
+import OfficeMap from './components/OfficeMap'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -141,16 +141,16 @@ function App() {
           </div>
         </nav>
         <div className="images">
-          <img id='background-l' src="/background-l.png" alt="" />
-          <img id='branches_diffuse' src="/branches_diffuse.jpeg" alt="" />
-          <img id='branches_normals' src="/branches_normals.jpeg" alt="" />
-          <img id='dog_normals' src="/dog_normals.jpg" alt="" />
-          <img id='kennedy' src="/kennedy.png" alt="" />
-          <img id='kikk' src="/kikk.png" alt="" />
-          <img id='msi-chicago' src="/msi-chicago.png" alt="" />
-          <img id='navy-pier' src="/navy-pier.png" alt="" />
-          <img id='opera' src="/opera.png" alt="" />
-          <img id='phone' src="/phone.png" alt="" />
+          <img id='background-l' src="/background-l.png" alt="Sovereign AI Infrastructure Background" />
+          <img id='branches_diffuse' src="/branches_diffuse.jpeg" alt="Deep Branch research visualization diffuse map" />
+          <img id='branches_normals' src="/branches_normals.jpeg" alt="Deep Branch research visualization normal map" />
+          <img id='dog_normals' src="/dog_normals.jpg" alt="Dog normal map model vector mapping" />
+          <img id='kennedy' src="/kennedy.png" alt="Enterprise Model Ops platform visualization" />
+          <img id='kikk' src="/kikk.png" alt="API Gateway integration architecture" />
+          <img id='msi-chicago' src="/msi-chicago.png" alt="Consenso Enterprise data partnership framework" />
+          <img id='navy-pier' src="/navy-pier.png" alt="Cura Health care data intelligence platform" />
+          <img id='opera' src="/opera.png" alt="African AI infrastructure deployment vector" />
+          <img id='phone' src="/phone.png" alt="Mobile AI client data engine dashboard" />
         </div>
         <Canvas
           id='canvas-elem'
@@ -172,7 +172,7 @@ function App() {
         <section id='section-1' className="story-section">
           <div className="middle">
             <div className="left">
-              <h1 className="display-title">ARCHITECTING <br /> AFRICA'S <span className="highlight" style={{ color: '#00d2ff' }}>INTELLIGENT</span><br /> FUTURE</h1>
+              <h1 className="display-title">ARCHITECTING <br /> AFRICA'S <span className="highlight" style={{ color: '#00d2ff' }}>INTELLIGENT</span> <br /> FUTURE</h1>
             </div>
           </div>
           <div className="bottom hero-bottom" style={{ marginBottom: '8vh' }}>
@@ -246,43 +246,43 @@ function App() {
             <div className="titles">
               <div img-title="background-l" className="title">
                 <small>01 — PLATFORM</small>
-                <h1>Cognitive Base</h1>
+                <h2>Cognitive Base</h2>
               </div>
               <div img-title="branches_diffuse" className="title">
                 <small>02 — RESEARCH</small>
-                <h1>Deep Branch</h1>
+                <h2>Deep Branch</h2>
               </div>
               <div img-title="branches_normals" className="title">
                 <small>03 — FOUNDATION</small>
-                <h1>Vector Mapping</h1>
+                <h2>Vector Mapping</h2>
               </div>
               <div img-title="dog_normals" className="title">
                 <small>04 — VISION</small>
-                <h1>Neural Optics</h1>
+                <h2>Neural Optics</h2>
               </div>
               <div img-title="kennedy" className="title">
                 <small>05 — INFRASTRUCTURE</small>
-                <h1>Model Ops</h1>
+                <h2>Model Ops</h2>
               </div>
               <div img-title="kikk" className="title">
                 <small>06 — INTEGRATION</small>
-                <h1>API Gateway</h1>
+                <h2>API Gateway</h2>
               </div>
               <div img-title="msi-chicago" className="title">
                 <small>07 — ENTERPRISE</small>
-                <h1>Consenso</h1>
+                <h2>Consenso</h2>
               </div>
               <div img-title="navy-pier" className="title">
                 <small>08 — HEALTHCARE</small>
-                <h1>Cura Health</h1>
+                <h2>Cura Health</h2>
               </div>
               <div img-title="opera" className="title">
                 <small>09 — DEPLOYMENT</small>
-                <h1>African AI</h1>
+                <h2>African AI</h2>
               </div>
               <div img-title="phone" className="title">
                 <small>10 — DATA PIPELINE</small>
-                <h1>Data Engine</h1>
+                <h2>Data Engine</h2>
               </div>
             </div>
           </div>
@@ -509,12 +509,14 @@ function App() {
         <section id='section-6' className="story-section contact-section">
           <div className="contact-container" style={{ paddingTop: '2vh' }}>
             <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}>THE NEXT CHAPTER</small>
-            <h1 className="contact-title display-title" style={{ fontFamily: 'Space Grotesk', fontSize: '5.5rem', fontWeight: 800, marginTop: '24px', lineHeight: 0.95, textTransform: 'uppercase', textShadow: '0 15px 40px rgba(0,0,0,0.6)' }}>Shape the <br /><span className="highlight" style={{ color: '#00d2ff' }}>Continent.</span></h1>
+            <h2 className="contact-title display-title" style={{ fontFamily: 'Space Grotesk', fontSize: '5.5rem', fontWeight: 800, marginTop: '24px', lineHeight: 0.95, textTransform: 'uppercase', textShadow: '0 15px 40px rgba(0,0,0,0.6)' }}>Shape the <br /><span className="highlight" style={{ color: '#00d2ff' }}>Continent.</span></h2>
             <a href="mailto:hello@clever-names.com" className="contact-btn" style={{ marginTop: '60px' }}>
               <span>hello@clever-names.com</span>
               <i className="ri-arrow-right-up-line"></i>
             </a>
           </div>
+
+          <OfficeMap />
 
           <footer className="footer">
             <div className="footer-top">

@@ -602,7 +602,7 @@ section {
       transition: all 0.3s linear;
       cursor: pointer;
 
-      h1 {
+      h2 {
         font-family: 'Space Grotesk', sans-serif;
         font-size: 4.5rem;
         font-weight: 400;
@@ -1770,4 +1770,134 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
 .form-back-btn:hover {
   background: rgba(255, 255, 255, 0.06);
   color: #ffffff;
+}
+
+/* Office Map styling */
+.office-map-section {
+  width: 80vw;
+  margin: 4rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 10;
+  position: relative;
+}
+
+.office-selector {
+  display: flex;
+  gap: 1rem;
+  align-self: flex-start;
+}
+
+.office-tab {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  color: #94a3b8;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.office-tab .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #475569;
+  transition: all 0.3s ease;
+}
+
+.office-tab:hover {
+  background: rgba(0, 210, 255, 0.05);
+  border-color: rgba(0, 210, 255, 0.3);
+  color: #ffffff;
+}
+
+.office-tab:hover .dot {
+  background: #00d2ff;
+  box-shadow: 0 0 8px #00d2ff;
+}
+
+.office-tab.active {
+  background: rgba(0, 210, 255, 0.08);
+  border-color: rgba(0, 210, 255, 0.5);
+  color: #00d2ff;
+}
+
+.office-tab.active .dot {
+  background: #00d2ff;
+  box-shadow: 0 0 10px #00d2ff;
+}
+
+.map-wrapper {
+  background: rgba(10, 25, 50, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 8px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 210, 255, 0.02);
+  backdrop-filter: blur(12px);
+  width: 100%;
+}
+
+.map-container {
+  height: 400px;
+  width: 100%;
+  border-radius: 14px;
+}
+
+/* Custom Leaflet overrides */
+.leaflet-container {
+  background-color: #0a1120 !important;
+}
+
+/* Dark popup design override */
+.leaflet-popup-content-wrapper {
+  background: rgba(10, 25, 50, 0.85) !important;
+  border: 1px solid rgba(0, 210, 255, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(10, 25, 50, 0.85) !important;
+  border-left: 1px solid rgba(0, 210, 255, 0.2) !important;
+  border-bottom: 1px solid rgba(0, 210, 255, 0.2) !important;
+}
+
+.leaflet-popup-close-button {
+  color: #94a3b8 !important;
+  padding: 8px 10px 0 0 !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #00d2ff !important;
+}
+
+.leaflet-bar {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+.leaflet-bar a {
+  background-color: rgba(10, 25, 50, 0.8) !important;
+  color: #94a3b8 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: rgba(0, 210, 255, 0.15) !important;
+  color: #00d2ff !important;
 }
