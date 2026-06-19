@@ -13,7 +13,6 @@ gsap.registerPlugin(ScrollTrigger)
 function App() {
   const [activeSection, setActiveSection] = useState('section-1')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalStep, setModalStep] = useState(1) // 1 for info, 2 for calendar
   const [formData, setFormData] = useState({
     companyName: '',
     contactName: '',
@@ -21,97 +20,46 @@ function App() {
     message: ''
   })
 
-  // Calendar states
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth())
-  const [selectedDate, setSelectedDate] = useState(null)
-  const [selectedTime, setSelectedTime] = useState('')
-
-  const getDaysInMonth = (year, month) => {
-    return new Date(year, month + 1, 0).getDate()
-  }
-
-  const getFirstDayOfMonth = (year, month) => {
-    return new Date(year, month, 1).getDay()
-  }
-
-  const handlePrevMonth = () => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11)
-      setCurrentYear(prev => prev - 1)
-    } else {
-      setCurrentMonth(prev => prev - 1)
-    }
-  }
-
-  const handleNextMonth = () => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0)
-      setCurrentYear(prev => prev + 1)
-    } else {
-      setCurrentMonth(prev => prev + 1)
-    }
-  }
-
-  const isPastDay = (day) => {
-    if (!day) return true
-    const cellDate = new Date(currentYear, currentMonth, day)
-    const today = new Date()
-    today.setHours(0, 0, 0, 0)
-    cellDate.setHours(0, 0, 0, 0)
-    return cellDate < today || cellDate.getDay() === 0 || cellDate.getDay() === 6
-  }
-
-  const handleDayClick = (day) => {
-    if (isPastDay(day)) return
-    setSelectedDate(new Date(currentYear, currentMonth, day))
-  }
-
-  const isSelectedDay = (day) => {
-    if (!day || !selectedDate) return false
-    return selectedDate.getDate() === day &&
-           selectedDate.getMonth() === currentMonth &&
-           selectedDate.getFullYear() === currentYear
-  }
-
   const handleFormSubmit = (e) => {
     e.preventDefault()
-    if (!selectedDate || !selectedTime) {
-      alert("Please select a date and time slot for the discovery call.")
-      return
-    }
 
-    const formattedDate = selectedDate.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    const company = formData.companyName
+    const name = formData.contactName
+    const email = formData.contactEmail
+    const message = formData.message
 
-    const subject = encodeURIComponent("Discovery Call Scheduled - " + formData.companyName)
-    const body = encodeURIComponent(
-      `Hello Clever Names,\n\nWe have scheduled a Discovery Call to explore the Data Partnership program.\n\n` +
-      `--- Appointment Details ---\n` +
-      `Date: ${formattedDate}\n` +
-      `Time: ${selectedTime} (SAST)\n\n` +
-      `--- Organisation Details ---\n` +
-      `Organisation: ${formData.companyName}\n` +
-      `Contact Person: ${formData.contactName}\n` +
-      `Email: ${formData.contactEmail}\n\n` +
-      `Message:\n${formData.message}`
-    )
-
-    window.location.href = `mailto:hello@clever-names.com?subject=${subject}&body=${body}`
+    // Close the modal and reset form state immediately
     setIsModalOpen(false)
-    setModalStep(1)
     setFormData({
       companyName: '',
       contactName: '',
       contactEmail: '',
       message: ''
     })
-    setSelectedDate(null)
-    setSelectedTime('')
+
+    // Submit AJAX request in the background
+    fetch("https://formsubmit.co/ajax/hello@clever-names.com", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `Data Partnership Inquiry - ${company}`,
+        "Organisation Name": company,
+        "Contact Name": name,
+        "Email": email,
+        "Message": message,
+        _captcha: "false"
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Form successfully submitted:", data)
+      })
+      .catch(error => {
+        console.error("Error submitting form:", error)
+      })
   }
 
   useEffect(() => {
@@ -599,151 +547,66 @@ function App() {
         </section>
 
         {/* Sleek Glassmorphic Modal for Data Partnerships */}
-        <div className={`modal-overlay${isModalOpen ? ' open' : ''}`} onClick={() => { setIsModalOpen(false); setModalStep(1); }}>
+        <div className={`modal-overlay${isModalOpen ? ' open' : ''}`} onClick={() => setIsModalOpen(false)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={() => { setIsModalOpen(false); setModalStep(1); }} aria-label="Close modal">
+            <button className="modal-close-btn" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
               <i className="ri-close-line"></i>
             </button>
             
-            {modalStep === 1 ? (
-              <>
-                <div className="modal-header">
-                  <h3>Explore Data Partnerships</h3>
-                  <p>Monetise your operational data and accelerate your AI strategy. Tell us about your company to get started.</p>
-                </div>
-                <form onSubmit={(e) => { e.preventDefault(); setModalStep(2); }} className="modal-form">
-                  <div className="form-group">
-                    <label htmlFor="companyName">Organisation / Company Name</label>
-                    <input
-                      type="text"
-                      id="companyName"
-                      required
-                      placeholder="e.g. Acme Corporation"
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="contactName">Contact Name</label>
-                    <input
-                      type="text"
-                      id="contactName"
-                      required
-                      placeholder="e.g. John Doe"
-                      value={formData.contactName}
-                      onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="contactEmail">Work Email</label>
-                    <input
-                      type="email"
-                      id="contactEmail"
-                      required
-                      placeholder="e.g. john@company.com"
-                      value={formData.contactEmail}
-                      onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="message">Message / Scope of Data</label>
-                    <textarea
-                      id="message"
-                      required
-                      rows="4"
-                      placeholder="Tell us briefly about your operational data and business focus..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    ></textarea>
-                  </div>
-                  <button type="submit" className="form-submit-btn">
-                    <span>Select Date & Time</span>
-                    <i className="ri-arrow-right-line"></i>
-                  </button>
-                </form>
-              </>
-            ) : (
-              <>
-                <div className="modal-header">
-                  <h3>Schedule Discovery Call</h3>
-                  <p>Pick a date and time slot for our virtual meeting (SAST time zone).</p>
-                </div>
-                <form onSubmit={handleFormSubmit} className="modal-form">
-                  <div className="calendar-wrapper">
-                    {/* Calendar Month Header */}
-                    <div className="calendar-header">
-                      <button type="button" className="calendar-nav-btn" onClick={handlePrevMonth} aria-label="Previous month">
-                        <i className="ri-arrow-left-s-line"></i>
-                      </button>
-                      <span className="calendar-month-year">
-                        {["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][currentMonth]} {currentYear}
-                      </span>
-                      <button type="button" className="calendar-nav-btn" onClick={handleNextMonth} aria-label="Next month">
-                        <i className="ri-arrow-right-s-line"></i>
-                      </button>
-                    </div>
-
-                    {/* Calendar Day Grid */}
-                    <div className="calendar-grid">
-                      {/* Weekday headers */}
-                      {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((wd, index) => (
-                        <div key={index} className="calendar-weekday">{wd}</div>
-                      ))}
-                      {/* Empty cells for padding */}
-                      {Array(getFirstDayOfMonth(currentYear, currentMonth)).fill(null).map((_, index) => (
-                        <div key={`blank-${index}`} className="calendar-day disabled"></div>
-                      ))}
-                      {/* Month Days */}
-                      {Array.from({ length: getDaysInMonth(currentYear, currentMonth) }, (_, i) => i + 1).map((day) => {
-                        const disabled = isPastDay(day);
-                        const selected = isSelectedDay(day);
-                        return (
-                          <div
-                            key={`day-${day}`}
-                            onClick={() => !disabled && handleDayClick(day)}
-                            className={`calendar-day${disabled ? ' disabled' : ''}${selected ? ' selected' : ''}`}
-                          >
-                            {day}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Time slot picker */}
-                  {selectedDate && (
-                    <div className="time-slots-section">
-                      <span className="time-slots-title">Available Slots:</span>
-                      <div className="time-slots-grid">
-                        {['09:00 AM', '10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'].map((slot) => {
-                          const selected = selectedTime === slot;
-                          return (
-                            <div
-                              key={slot}
-                              onClick={() => setSelectedTime(slot)}
-                              className={`time-slot${selected ? ' selected' : ''}`}
-                            >
-                              {slot}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="modal-actions-row">
-                    <button type="button" className="form-back-btn" onClick={() => setModalStep(1)}>
-                      <i className="ri-arrow-left-line"></i>
-                      <span>Back</span>
-                    </button>
-                    <button type="submit" className="form-submit-btn" disabled={!selectedDate || !selectedTime}>
-                      <span>Confirm & Schedule</span>
-                      <i className="ri-calendar-check-line"></i>
-                    </button>
-                  </div>
-                </form>
-              </>
-            )}
+            <div className="modal-header">
+              <h3>Explore Data Partnerships</h3>
+              <p>Monetise your operational data and accelerate your AI strategy. Tell us about your company to get started.</p>
+            </div>
+            <form onSubmit={handleFormSubmit} className="modal-form">
+              <div className="form-group">
+                <label htmlFor="companyName">Organisation / Company Name</label>
+                <input
+                  type="text"
+                  id="companyName"
+                  required
+                  placeholder="e.g. Acme Corporation"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactName">Contact Name</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  required
+                  placeholder="e.g. John Doe"
+                  value={formData.contactName}
+                  onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactEmail">Work Email</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  required
+                  placeholder="e.g. john@company.com"
+                  value={formData.contactEmail}
+                  onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="message">Message / Scope of Data</label>
+                <textarea
+                  id="message"
+                  required
+                  rows="4"
+                  placeholder="Tell us briefly about your operational data and business focus..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                ></textarea>
+              </div>
+              <button type="submit" className="form-submit-btn">
+                <span>Send Message</span>
+                <i className="ri-mail-send-line"></i>
+              </button>
+            </form>
           </div>
         </div>
       </main>
