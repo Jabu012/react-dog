@@ -74,11 +74,13 @@ function App() {
           </div>
           <div className="nav-center-wrapper">
             <div className="nav-center">
-              <a href="#overview" className="nav-link">Overview</a>
-              <a href="#focus" className="nav-link">Focus</a>
-              <a href="#products" className="nav-link">Products</a>
-              <a href="#technology" className="nav-link">Technology</a>
-              <a href="#pricing" className="nav-link">Pricing</a>
+              <a href="#section-1" className={`nav-link${activeSection === 'section-1' ? ' nav-link--active' : ''}`}>Overview</a>
+              <a href="#section-2" className={`nav-link${activeSection === 'section-2' ? ' nav-link--active' : ''}`}>Focus</a>
+              <a href="#section-3" className={`nav-link${activeSection === 'section-3' ? ' nav-link--active' : ''}`}>Products</a>
+              <a href="#section-5" className={`nav-link${['section-4', 'section-5', 'section-strategy'].includes(activeSection) ? ' nav-link--active' : ''}`}>Technology</a>
+              <a href="#section-companies" className={`nav-link${activeSection === 'section-companies' ? ' nav-link--active' : ''}`}>For Companies</a>
+              <a href="#section-6" className={`nav-link${activeSection === 'section-6' ? ' nav-link--active' : ''}`}>Contact</a>
+              <a href="#section-talent" className={`nav-link nav-link--talent${activeSection === 'section-talent' ? ' nav-link--active' : ''}`}>Careers ↗</a>
             </div>
             <div className="nav-badge">
               <span className="badge-dot"></span>
@@ -338,12 +340,128 @@ function App() {
           </div>
         </section>
 
+        <section id='section-talent' className="story-section talent-section">
+          <div className="talent-container">
+            <div className="talent-layout">
+              <div className="talent-header">
+                <small className="pill" style={{ color: '#c4ff00', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', borderColor: 'rgba(196,255,0,0.2)', background: 'rgba(196,255,0,0.05)' }}>EXTERNAL OPPORTUNITIES</small>
+                <h2 className="section-title talent-title">Exceptional Roles for<br />Exceptional <span style={{ color: '#c4ff00' }}>Professionals.</span></h2>
+                <p className="section-desc talent-desc">
+                  Clever Names surfaces opportunities across domains &mdash; from technology and product to finance, operations, and beyond. We point professionals toward <strong>micro1</strong>, an AI-first hiring platform that values deep domain expertise above all else. You do not need to work in AI. You need to be exceptional at what you do.
+                </p>
+                <a
+                  href="https://refer.micro1.ai/referral/jobs?referralCode=936971ea-4dc6-4f0e-bc4d-df1d5e542d45&utm_source=referral&utm_medium=share&utm_campaign=job_referral"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="talent-cta-btn talent-cta-btn--hero"
+                  id="micro1-referral-btn"
+                >
+                  <span>View Opportunities</span>
+                  <i className="ri-arrow-right-up-line"></i>
+                </a>
+                <div className="talent-meta">
+                  <span className="talent-meta-item"><i className="ri-map-pin-line"></i> Remote &amp; On-site Globally</span>
+                  <span className="talent-meta-item"><i className="ri-user-star-line"></i> All Professional Domains</span>
+                  <span className="talent-meta-item"><i className="ri-shield-check-line"></i> Expertise-Led Matching</span>
+                </div>
+                <p className="talent-cta-disclaimer">
+                  <i className="ri-information-line"></i>
+                  <span>Candidate applications are free of charge.</span>
+                </p>
+              </div>
+
+              <div className="talent-cards">
+                <div className="talent-feature-card">
+                  <div className="talent-feature-icon"><i className="ri-award-line"></i></div>
+                  <div className="talent-card-body">
+                    <h4>Domain Expertise, Valued</h4>
+                    <p>Roles span product, finance, operations, design, legal, and technology. What the platform looks for is mastery within your field &mdash; professionals who know their discipline with depth and can execute at a high level.</p>
+                  </div>
+                </div>
+                <div className="talent-feature-card">
+                  <div className="talent-feature-icon"><i className="ri-earth-line"></i></div>
+                  <div className="talent-card-body">
+                    <h4>Global-Scale Opportunities</h4>
+                    <p>Positions across 50+ countries, spanning early-stage ventures and established organisations. African professionals are actively sought &mdash; your background is an asset, not a qualifier to overcome.</p>
+                  </div>
+                </div>
+                <div className="talent-feature-card">
+                  <div className="talent-feature-icon"><i className="ri-speed-up-line"></i></div>
+                  <div className="talent-card-body">
+                    <h4>Structured. Efficient. Serious.</h4>
+                    <p>AI-assisted screening replaces drawn-out recruitment cycles. Candidates are assessed on substance &mdash; reducing time-to-offer without compromising on the quality of evaluation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section id='section-companies' className="story-section companies-section">
+          <div className="companies-container">
+            <div className="companies-layout">
+
+              <div className="companies-header">
+                <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', borderColor: 'rgba(0,210,255,0.2)', background: 'rgba(0,210,255,0.05)' }}>FOR ORGANISATIONS</small>
+                <h2 className="section-title companies-title">Your Operations<br />Are an <span style={{ color: '#00d2ff' }}>Untapped Asset.</span></h2>
+                <p className="section-desc companies-desc">
+                  Most organisations generate enormous amounts of valuable process knowledge every day &mdash; and leave it entirely on the table. We act as an intermediary connecting you to a premier data partnership program that transforms your domain expertise into a recurring revenue stream.
+                </p>
+                <p className="section-desc companies-desc" style={{ marginTop: '1rem' }}>
+                  If your company wants to monetise its operational data while accelerating its adoption of AI, we&rsquo;d love to facilitate a strategic introduction.
+                </p>
+                <div className="companies-cta-group">
+                  <a
+                    href="mailto:hello@clever-names.com?subject=Strategic%20Data%20Partnership&body=Hello%20Clever%20Names%2C%0A%0AWe%20are%20interested%20in%20learning%20more%20about%20monetising%20our%20operational%20data%20through%20your%20partnership%20program.%0A%0AOrganisation%3A%0AContact%20Name%3A"
+                    className="companies-primary-btn"
+                    id="companies-contact-btn"
+                  >
+                    <span>Start a Conversation</span>
+                    <i className="ri-mail-send-line"></i>
+                  </a>
+                  <a
+                    href="mailto:hello@clever-names.com?subject=Data%20Partnership%20Enquiry&body=Hello%20Clever%20Names%2C%0A%0AWe%20would%20like%20to%20explore%20the%20Data%20Partnership%20program.%0A%0AOrganisation%3A%0AContact%20Name%3A"
+                    className="companies-secondary-btn"
+                    id="companies-data-btn"
+                  >
+                    <span>Explore Data Partnerships</span>
+                    <i className="ri-arrow-right-up-line"></i>
+                  </a>
+                </div>
+                <p className="companies-note">
+                  <i className="ri-lock-line"></i>
+                  <span>All enquiries are handled with full confidentiality.</span>
+                </p>
+              </div>
+
+              <div className="companies-value-grid">
+                <div className="companies-value-card">
+                  <div className="companies-value-icon"><i className="ri-database-2-line"></i></div>
+                  <div className="companies-card-body">
+                    <h4>Monetise Your Operations</h4>
+                    <p>Your day-to-day workflows contain patterns and decisions that frontier AI labs actively seek. We connect you to pipelines that safely turn your proprietary process data into an ongoing, scalable revenue source.</p>
+                  </div>
+                </div>
+                <div className="companies-value-card">
+                  <div className="companies-value-icon"><i className="ri-rocket-line"></i></div>
+                  <div className="companies-card-body">
+                    <h4>Accelerate AI Integration</h4>
+                    <p>Entering a strategic data partnership does more than generate revenue &mdash; it directly positions your organisation at the forefront of AI adoption, providing early access to the infrastructure of tomorrow.</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
         <section id='section-6' className="story-section contact-section">
           <div className="contact-container" style={{ paddingTop: '2vh' }}>
             <small className="pill" style={{ color: '#00d2ff', letterSpacing: '4px', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase' }}>THE NEXT CHAPTER</small>
             <h1 className="contact-title display-title" style={{ fontFamily: 'Space Grotesk', fontSize: '5.5rem', fontWeight: 800, marginTop: '24px', lineHeight: 0.95, textTransform: 'uppercase', textShadow: '0 15px 40px rgba(0,0,0,0.6)' }}>Shape the <br /><span className="highlight" style={{ color: '#00d2ff' }}>Continent.</span></h1>
-            <a href="mailto:hello@clevernames.com" className="contact-btn" style={{ marginTop: '60px' }}>
-              <span>hello@clevernames.com</span>
+            <a href="mailto:hello@clever-names.com" className="contact-btn" style={{ marginTop: '60px' }}>
+              <span>hello@clever-names.com</span>
               <i className="ri-arrow-right-up-line"></i>
             </a>
           </div>
@@ -363,7 +481,6 @@ function App() {
                 <div className="social-icons">
                   <a href="#" aria-label="LinkedIn"><i className="ri-linkedin-fill"></i></a>
                   <a href="#" aria-label="Twitter"><i className="ri-twitter-x-fill"></i></a>
-                  <a href="#" aria-label="GitHub"><i className="ri-github-fill"></i></a>
                   <a href="#" aria-label="Instagram"><i className="ri-instagram-line"></i></a>
                 </div>
               </div>
