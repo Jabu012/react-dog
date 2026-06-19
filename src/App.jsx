@@ -350,7 +350,7 @@ function App() {
                   Clever Names surfaces opportunities across domains &mdash; from technology and product to finance, operations, and beyond. We point professionals toward <strong>micro1</strong>, an AI-first hiring platform that values deep domain expertise above all else. You do not need to work in AI. You need to be exceptional at what you do.
                 </p>
                 <a
-                  href="https://refer.micro1.ai/referral/jobs?referralCode=936971ea-4dc6-4f0e-bc4d-df1d5e542d45&utm_source=referral&utm_medium=share&utm_campaign=job_referral"
+                  href="https://refer.micro1.ai/referral/jobs/?referralCode=936971ea-4dc6-4f0e-bc4d-df1d5e542d45&utm_source=referral&utm_medium=share&utm_campaign=job_referral"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="talent-cta-btn talent-cta-btn--hero"
