@@ -12,6 +12,27 @@ gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   const [activeSection, setActiveSection] = useState('section-1')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    companyName: '',
+    contactName: '',
+    contactEmail: '',
+    message: ''
+  })
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    const subject = encodeURIComponent("Data Partnership Inquiry - " + formData.companyName)
+    const body = encodeURIComponent(`Hello Clever Names,\n\nWe are interested in exploring the Data Partnership program.\n\nOrganisation: ${formData.companyName}\nContact Person: ${formData.contactName}\nEmail: ${formData.contactEmail}\n\nMessage:\n${formData.message}`)
+    window.location.href = `mailto:hello@clever-names.com?subject=${subject}&body=${body}`
+    setIsModalOpen(false)
+    setFormData({
+      companyName: '',
+      contactName: '',
+      contactEmail: '',
+      message: ''
+    })
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -420,14 +441,15 @@ function App() {
                     <span>Start a Conversation</span>
                     <i className="ri-mail-send-line"></i>
                   </a>
-                  <a
-                    href="mailto:hello@clever-names.com?subject=Data%20Partnership%20Enquiry&body=Hello%20Clever%20Names%2C%0A%0AWe%20would%20like%20to%20explore%20the%20Data%20Partnership%20program.%0A%0AOrganisation%3A%0AContact%20Name%3A"
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(true)}
                     className="companies-secondary-btn"
                     id="companies-data-btn"
                   >
                     <span>Explore Data Partnerships</span>
                     <i className="ri-arrow-right-up-line"></i>
-                  </a>
+                  </button>
                 </div>
                 <p className="companies-note">
                   <i className="ri-lock-line"></i>
@@ -495,6 +517,69 @@ function App() {
             </div>
           </footer>
         </section>
+
+        {/* Sleek Glassmorphic Modal for Data Partnerships */}
+        <div className={`modal-overlay${isModalOpen ? ' open' : ''}`} onClick={() => setIsModalOpen(false)}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
+              <i className="ri-close-line"></i>
+            </button>
+            <div className="modal-header">
+              <h3>Explore Data Partnerships</h3>
+              <p>Monetise your operational data and accelerate your AI strategy. Fill in the details below, and we'll prepare a custom email inquiry for you.</p>
+            </div>
+            <form onSubmit={handleFormSubmit} className="modal-form">
+              <div className="form-group">
+                <label htmlFor="companyName">Organisation / Company Name</label>
+                <input
+                  type="text"
+                  id="companyName"
+                  required
+                  placeholder="e.g. Acme Corporation"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactName">Contact Name</label>
+                <input
+                  type="text"
+                  id="contactName"
+                  required
+                  placeholder="e.g. John Doe"
+                  value={formData.contactName}
+                  onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="contactEmail">Work Email</label>
+                <input
+                  type="email"
+                  id="contactEmail"
+                  required
+                  placeholder="e.g. john@company.com"
+                  value={formData.contactEmail}
+                  onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="message">Message / Scope of Data</label>
+                <textarea
+                  id="message"
+                  required
+                  rows="4"
+                  placeholder="Tell us briefly about your operational data and business focus..."
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                ></textarea>
+              </div>
+              <button type="submit" className="form-submit-btn">
+                <span>Generate Inquiry Email</span>
+                <i className="ri-arrow-right-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
       </main>
     </>
   )
