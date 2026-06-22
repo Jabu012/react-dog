@@ -185,12 +185,19 @@ function App() {
               <div className="hero-tags" style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
                 <span className="tag-pill">Retrieval-Augmented Generation</span>
                 <span className="tag-pill">Conversational AI</span>
-                <span className="tag-pill">SaaS Platforms</span>
+                <span className="tag-pill">SaaS Development</span>
+                <span className="tag-pill">IT Consulting</span>
+                <span className="tag-pill">Business Consulting</span>
                 <span className="tag-pill">Cloud Infrastructure</span>
-                <span className="tag-pill">Emerging Markets</span>
-                <span className="tag-pill">Institutional Consultancy</span>
+                <span className="tag-pill">Project Management</span>
                 <span className="tag-pill">Web Development</span>
+                <span className="tag-pill">User Experience Design (UED)</span>
+                <span className="tag-pill">Institutional Consultancy</span>
                 <span className="tag-pill">Sovereign AI Strategy</span>
+                <span className="tag-pill">Software Testing</span>
+                <span className="tag-pill">Technical Support</span>
+                <span className="tag-pill">Corporate Training</span>
+                <span className="tag-pill">Emerging Markets</span>
               </div>
             </div>
           </div>
