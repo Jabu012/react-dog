@@ -1604,6 +1604,79 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   transform: translate(3px, -3px);
 }
 
+/* ─── Thank-you screen ────────────────────────────────── */
+.modal-thankyou {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+  gap: 1.2rem;
+}
+
+.thankyou-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(0, 210, 255, 0.08);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: thankyou-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.thankyou-icon i {
+  font-size: 2.4rem;
+  color: #00d2ff;
+}
+
+@keyframes thankyou-pop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.thankyou-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.thankyou-msg {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #94a3b8;
+  line-height: 1.65;
+  max-width: 380px;
+}
+
+.thankyou-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(0, 210, 255, 0.7);
+  letter-spacing: 0.4px;
+}
+
+.thankyou-close-btn {
+  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  width: auto !important;
+  padding: 0.8rem 2.5rem !important;
+}
+
+.thankyou-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: none !important;
+}
+
 /* ─── Calendar Booking Styles ─────────────────────────── */
 .calendar-wrapper {
   display: flex;

@@ -13,12 +13,19 @@ gsap.registerPlugin(ScrollTrigger)
 function App() {
   const [activeSection, setActiveSection] = useState('section-1')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     companyName: '',
     contactName: '',
     contactEmail: '',
     message: ''
   })
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setFormSubmitted(false)
+    setFormData({ companyName: '', contactName: '', contactEmail: '', message: '' })
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
@@ -28,14 +35,9 @@ function App() {
     const email = formData.contactEmail
     const message = formData.message
 
-    // Close the modal and reset form state immediately
-    setIsModalOpen(false)
-    setFormData({
-      companyName: '',
-      contactName: '',
-      contactEmail: '',
-      message: ''
-    })
+    // Show thank-you screen immediately
+    setFormSubmitted(true)
+    setFormData({ companyName: '', contactName: '', contactEmail: '', message: '' })
 
     // Submit AJAX request in the background
     fetch("https://formsubmit.co/ajax/hello@clever-names.com", {
@@ -556,66 +558,84 @@ function App() {
         </section>
 
         {/* Sleek Glassmorphic Modal for Data Partnerships */}
-        <div className={`modal-overlay${isModalOpen ? ' open' : ''}`} onClick={() => setIsModalOpen(false)}>
+        <div className={`modal-overlay${isModalOpen ? ' open' : ''}`} onClick={closeModal}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={() => setIsModalOpen(false)} aria-label="Close modal">
+            <button className="modal-close-btn" onClick={closeModal} aria-label="Close modal">
               <i className="ri-close-line"></i>
             </button>
-            
-            <div className="modal-header">
-              <h3>Explore Data Partnerships</h3>
-              <p>Monetise your operational data and accelerate your AI strategy. Tell us about your company to get started.</p>
-            </div>
-            <form onSubmit={handleFormSubmit} className="modal-form">
-              <div className="form-group">
-                <label htmlFor="companyName">Organisation / Company Name</label>
-                <input
-                  type="text"
-                  id="companyName"
-                  required
-                  placeholder="e.g. Acme Corporation"
-                  value={formData.companyName}
-                  onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                />
+            {formSubmitted ? (
+              <div className="modal-thankyou">
+                <div className="thankyou-icon">
+                  <i className="ri-checkbox-circle-fill"></i>
+                </div>
+                <h3 className="thankyou-title">Message Received</h3>
+                <p className="thankyou-msg">
+                  Thank you for reaching out. A member of our team will review your enquiry and get back to you shortly.
+                </p>
+                <p className="thankyou-sub">We look forward to exploring this with you.</p>
+                <button className="form-submit-btn thankyou-close-btn" onClick={closeModal}>
+                  <span>Close</span>
+                  <i className="ri-close-circle-line"></i>
+                </button>
               </div>
-              <div className="form-group">
-                <label htmlFor="contactName">Contact Name</label>
-                <input
-                  type="text"
-                  id="contactName"
-                  required
-                  placeholder="e.g. John Doe"
-                  value={formData.contactName}
-                  onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="contactEmail">Work Email</label>
-                <input
-                  type="email"
-                  id="contactEmail"
-                  required
-                  placeholder="e.g. john@company.com"
-                  value={formData.contactEmail}
-                  onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="message">Message / Scope of Data</label>
-                <textarea
-                  id="message"
-                  required
-                  rows="4"
-                  placeholder="Tell us briefly about your operational data and business focus..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                ></textarea>
-              </div>
-              <button type="submit" className="form-submit-btn">
-                <span>Send Message</span>
-                <i className="ri-mail-send-line"></i>
-              </button>
-            </form>
+            ) : (
+              <>
+                <div className="modal-header">
+                  <h3>Explore Data Partnerships</h3>
+                  <p>Monetise your operational data and accelerate your AI strategy. Tell us about your company to get started.</p>
+                </div>
+                <form onSubmit={handleFormSubmit} className="modal-form">
+                  <div className="form-group">
+                    <label htmlFor="companyName">Organisation / Company Name</label>
+                    <input
+                      type="text"
+                      id="companyName"
+                      required
+                      placeholder="e.g. Acme Corporation"
+                      value={formData.companyName}
+                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="contactName">Contact Name</label>
+                    <input
+                      type="text"
+                      id="contactName"
+                      required
+                      placeholder="e.g. John Doe"
+                      value={formData.contactName}
+                      onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="contactEmail">Work Email</label>
+                    <input
+                      type="email"
+                      id="contactEmail"
+                      required
+                      placeholder="e.g. john@company.com"
+                      value={formData.contactEmail}
+                      onChange={(e) => setFormData({ ...formData, contactEmail: e.target.value })}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="message">Message / Scope of Data</label>
+                    <textarea
+                      id="message"
+                      required
+                      rows="4"
+                      placeholder="Tell us briefly about your operational data and business focus..."
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    ></textarea>
+                  </div>
+                  <button type="submit" className="form-submit-btn">
+                    <span>Send Message</span>
+                    <i className="ri-mail-send-line"></i>
+                  </button>
+                </form>
+              </>
+            )}
           </div>
         </div>
       </main>
