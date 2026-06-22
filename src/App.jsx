@@ -10,6 +10,28 @@ import OfficeMap from './components/OfficeMap'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const sectionToPath = {
+  'section-1': '/Overview',
+  'section-2': '/Focus',
+  'section-3': '/Products',
+  'section-4': '/Technology',
+  'section-5': '/Technology',
+  'section-strategy': '/Technology',
+  'section-companies': '/For-Companies',
+  'section-6': '/Contact',
+  'section-talent': '/Careers',
+}
+
+const pathToSection = {
+  '/overview': 'section-1',
+  '/focus': 'section-2',
+  '/products': 'section-3',
+  '/technology': 'section-5',
+  '/for-companies': 'section-companies',
+  '/contact': 'section-6',
+  '/careers': 'section-talent',
+}
+
 function App() {
   const [activeSection, setActiveSection] = useState('section-1')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -64,11 +86,35 @@ function App() {
       })
   }
 
+  // Scroll to section on initial URL load (e.g. direct visit to /Overview)
+  useEffect(() => {
+    const path = window.location.pathname.toLowerCase()
+    const sectionId = pathToSection[path]
+    if (sectionId) {
+      const el = document.getElementById(sectionId)
+      if (el) el.scrollIntoView({ behavior: 'instant' })
+    } else {
+      // Default: push /Overview for root
+      history.replaceState(null, '', '/Overview')
+    }
+  }, [])
+
+  const handleNavClick = (e, sectionId) => {
+    e.preventDefault()
+    const el = document.getElementById(sectionId)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+    const path = sectionToPath[sectionId]
+    if (path) history.pushState(null, '', path)
+  }
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          setActiveSection(entry.target.id)
+          const id = entry.target.id
+          setActiveSection(id)
+          const path = sectionToPath[id]
+          if (path) history.replaceState(null, '', path)
         }
       })
     }, { threshold: 0.2 })
@@ -125,13 +171,13 @@ function App() {
           </div>
           <div className="nav-center-wrapper">
             <div className="nav-center">
-              <a href="#section-1" className={`nav-link${activeSection === 'section-1' ? ' nav-link--active' : ''}`}>Overview</a>
-              <a href="#section-2" className={`nav-link${activeSection === 'section-2' ? ' nav-link--active' : ''}`}>Focus</a>
-              <a href="#section-3" className={`nav-link${activeSection === 'section-3' ? ' nav-link--active' : ''}`}>Products</a>
-              <a href="#section-5" className={`nav-link${['section-4', 'section-5', 'section-strategy'].includes(activeSection) ? ' nav-link--active' : ''}`}>Technology</a>
-              <a href="#section-companies" className={`nav-link${activeSection === 'section-companies' ? ' nav-link--active' : ''}`}>For Companies</a>
-              <a href="#section-6" className={`nav-link${activeSection === 'section-6' ? ' nav-link--active' : ''}`}>Contact</a>
-              <a href="#section-talent" className={`nav-link nav-link--talent${activeSection === 'section-talent' ? ' nav-link--active' : ''}`}>Careers ↗</a>
+              <a href="/Overview" onClick={(e) => handleNavClick(e, 'section-1')} className={`nav-link${activeSection === 'section-1' ? ' nav-link--active' : ''}`}>Overview</a>
+              <a href="/Focus" onClick={(e) => handleNavClick(e, 'section-2')} className={`nav-link${activeSection === 'section-2' ? ' nav-link--active' : ''}`}>Focus</a>
+              <a href="/Products" onClick={(e) => handleNavClick(e, 'section-3')} className={`nav-link${activeSection === 'section-3' ? ' nav-link--active' : ''}`}>Products</a>
+              <a href="/Technology" onClick={(e) => handleNavClick(e, 'section-5')} className={`nav-link${['section-4', 'section-5', 'section-strategy'].includes(activeSection) ? ' nav-link--active' : ''}`}>Technology</a>
+              <a href="/For-Companies" onClick={(e) => handleNavClick(e, 'section-companies')} className={`nav-link${activeSection === 'section-companies' ? ' nav-link--active' : ''}`}>For Companies</a>
+              <a href="/Contact" onClick={(e) => handleNavClick(e, 'section-6')} className={`nav-link${activeSection === 'section-6' ? ' nav-link--active' : ''}`}>Contact</a>
+              <a href="/Careers" onClick={(e) => handleNavClick(e, 'section-talent')} className={`nav-link nav-link--talent${activeSection === 'section-talent' ? ' nav-link--active' : ''}`}>Careers ↗</a>
             </div>
             <div className="nav-badge">
               <span className="badge-dot"></span>
