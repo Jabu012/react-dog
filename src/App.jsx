@@ -531,10 +531,10 @@ function App() {
               <div className="footer-col">
                 <h4>Follow Us</h4>
                 <div className="social-icons">
-                  <a href="#" aria-label="LinkedIn"><i className="ri-linkedin-fill"></i></a>
+                  <a href="https://www.linkedin.com/company/clever-names" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="ri-linkedin-fill"></i></a>
                   <a href="#" aria-label="Twitter"><i className="ri-twitter-x-fill"></i></a>
                   <a href="#" aria-label="Instagram"><i className="ri-instagram-line"></i></a>
-                  <a href="#" aria-label="TikTok"><i className="ri-tiktok-fill"></i></a>
+                  <a href="https://www.tiktok.com/@clever_names" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i className="ri-tiktok-fill"></i></a>
                 </div>
               </div>
             </div>
