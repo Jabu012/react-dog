@@ -137,7 +137,7 @@ function App() {
             </div>
           </div>
           <div className="nav-right">
-            <button className="cta-button">Get Started</button>
+            <button className="cta-button" onClick={() => setIsModalOpen(true)}>Get Started</button>
           </div>
         </nav>
         <div className="images">
