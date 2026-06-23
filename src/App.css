@@ -2140,39 +2140,8 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   }
 
   /* Section 1 – Hero */
-  #section-1 .middle {
-    flex-direction: column;
-    gap: 2rem;
-    padding-inline: 5vw;
-  }
-
-  #section-1 .middle .left,
-  #section-1 .middle .right {
-    width: 100%;
-  }
-
-  #section-1 .middle .left {
-    justify-content: flex-start;
-    padding-block: 4rem 0;
-  }
-
   #section-1 .middle .display-title {
-    font-size: 4rem;
-    text-align: left;
-  }
-
-  #section-1 .bottom {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding-inline: 5vw;
-  }
-
-  #section-1 .bottom .left {
-    display: none;
-  }
-
-  #section-1 .bottom .right {
-    width: 100%;
+    font-size: 4.5rem;
   }
 
   /* Section 2 – Focus */
@@ -2190,9 +2159,17 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
     margin-left: 5vw !important;
     width: 90vw !important;
   }
-
-  .build-grid {
-    grid-template-columns: repeat(2, 1fr);
+  
+  .build-card {
+    padding: 1.5rem;
+  }
+  
+  .build-card h3 {
+    font-size: 1.25rem;
+  }
+  
+  .build-card p {
+    font-size: 0.9rem;
   }
 
   /* Section 3 – Products (hover list) */
@@ -2230,8 +2207,8 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
     width: 90vw !important;
   }
 
-  .foundation-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .foundation-card {
+    padding: 1.5rem;
   }
 
   /* Section Strategy */
@@ -2244,18 +2221,13 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
     font-size: 2.8rem !important;
   }
 
-  .strategy-grid {
-    grid-template-columns: 1fr;
+  .strategy-column {
+    padding: 2rem 3vw;
   }
 
   /* Talent Section */
   .talent-container {
     width: 90vw;
-  }
-
-  .talent-layout {
-    grid-template-columns: 1fr;
-    gap: 3rem;
   }
 
   .talent-title {
@@ -2265,11 +2237,6 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   /* Companies Section */
   .companies-container {
     width: 90vw;
-  }
-
-  .companies-layout {
-    grid-template-columns: 1fr;
-    gap: 3rem;
   }
 
   .companies-title {
@@ -2342,9 +2309,40 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   }
 
   /* Section 1 – Hero */
+  #section-1 .middle {
+    flex-direction: column;
+    gap: 2rem;
+    padding-inline: 5vw;
+  }
+
+  #section-1 .middle .left,
+  #section-1 .middle .right {
+    width: 100%;
+  }
+
+  #section-1 .middle .left {
+    justify-content: flex-start;
+    padding-block: 4rem 0;
+  }
+
   #section-1 .middle .display-title {
     font-size: 2.8rem;
     line-height: 1.05;
+    text-align: left;
+  }
+
+  #section-1 .bottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-inline: 5vw;
+  }
+
+  #section-1 .bottom .left {
+    display: none;
+  }
+
+  #section-1 .bottom .right {
+    width: 100%;
   }
 
   #section-1 .bottom .right p {
@@ -2425,6 +2423,10 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
     font-size: 2rem !important;
   }
 
+  .strategy-grid {
+    grid-template-columns: 1fr;
+  }
+
   .strategy-column {
     padding: 2rem;
   }
@@ -2433,6 +2435,11 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   .talent-section {
     padding-top: 10vh;
     padding-bottom: 8vh;
+  }
+
+  .talent-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
   }
 
   .talent-title {
@@ -2446,6 +2453,11 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   }
 
   /* Companies Section */
+  .companies-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
   .companies-title {
     font-size: 2.5rem !important;
   }
