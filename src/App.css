@@ -2092,15 +2092,19 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
 }
 
 .mobile-nav-logo {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+  background-color: #050d1a; /* Ensures the square corners are hidden behind a clean dark circle */
 }
 
 .mobile-nav-brand {
   font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  letter-spacing: -0.5px;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: -0.2px;
   color: #fff;
 }
 
