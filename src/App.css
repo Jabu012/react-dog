@@ -2140,8 +2140,14 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   }
 
   /* Section 1 – Hero */
+  #section-1 .middle .left {
+    justify-content: flex-start;
+    padding-left: 5vw;
+  }
+
   #section-1 .middle .display-title {
-    font-size: 4.5rem;
+    font-size: 3.8rem;
+    text-align: left;
   }
 
   /* Section 2 – Focus */
