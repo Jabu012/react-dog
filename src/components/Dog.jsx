@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useLayoutEffect, useMemo } from 'react'
+import React, { useEffect, useRef, useLayoutEffect, useMemo, useState } from 'react'
 import * as THREE from "three"
 import { useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF, useTexture, useAnimations } from '@react-three/drei'
@@ -9,9 +9,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const Dog = () => {
 
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768)
 
-
-
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768)
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const model = useGLTF("/models/dog.drc.glb")
 
@@ -20,19 +24,19 @@ const Dog = () => {
     const { actions } = useAnimations(model.animations, model.scene)
 
     useEffect(() => {
-        actions[ "Take 001" ].play()
-    }, [ actions ])
+        actions["Take 001"].play()
+    }, [actions])
 
 
 
-    const [ normalMap ] = (useTexture([ "/dog_normals.jpg", ]))
+    const [normalMap] = (useTexture(["/dog_normals.jpg",]))
         .map(texture => {
             texture.flipY = false
             texture.colorSpace = THREE.SRGBColorSpace
             return texture
         })
 
-    const [ branchMap, branchNormalMap ] = (useTexture([ "/branches_diffuse.jpeg", "/branches_normals.jpeg" ]))
+    const [branchMap, branchNormalMap] = (useTexture(["/branches_diffuse.jpeg", "/branches_normals.jpeg"]))
         .map(texture => {
             texture.colorSpace = THREE.SRGBColorSpace
             return texture
@@ -126,8 +130,8 @@ const Dog = () => {
         })
     }, [model.scene, dogMaterial, branchMaterial])
 
-const dogModel = useRef()
-const rotationGroup = useRef()
+    const dogModel = useRef()
+    const rotationGroup = useRef()
 
     useFrame((state, delta) => {
         if (rotationGroup.current) {
@@ -299,7 +303,7 @@ const rotationGroup = useRef()
 
         const titles = document.querySelectorAll('.title')
         titles.forEach(t => t.addEventListener('mouseenter', handleMouseEnter))
-        
+
         const container = document.querySelector('.titles')
         if (container) container.addEventListener('mouseleave', handleMouseLeave)
 
@@ -312,9 +316,13 @@ const rotationGroup = useRef()
 
     return (
         <group ref={rotationGroup}>
-            <primitive ref={dogModel} object={model.scene} position={[ 0.25, -0.55, 0 ]} rotation={[ 0, Math.PI / 3.9, 0 ]} />
-            <directionalLight position={[ 0, 5, 5 ]} color={0xFFFFFF} intensity={10} />
-            <OrbitControls enablePan={false} enableZoom={false} enableRotate={true} />
+            <primitive ref={dogModel} object={model.scene} position={[0.25, -0.55, 0]} rotation={[0, Math.PI / 3.9, 0]} />
+            <directionalLight position={[0, 5, 5]} color={0xFFFFFF} intensity={10} />
+            <OrbitControls
+                enablePan={false}
+                enableZoom={false}
+                enableRotate={!isMobile}
+            />
         </group>
     )
 }

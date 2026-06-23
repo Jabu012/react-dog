@@ -1974,3 +1974,698 @@ main:has(#section-3 .title[img-title="phone"]:hover) .images #phone {
   background-color: rgba(0, 210, 255, 0.15) !important;
   color: #00d2ff !important;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE STYLES — Tablet & Mobile Optimisation
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Hamburger Menu ─────────────────────────────────────── */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.hamburger-btn.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-btn.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger-btn.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer nav */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 13, 26, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 140;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80vw;
+  max-width: 320px;
+  height: 100vh;
+  background: rgba(10, 20, 35, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0;
+  padding-top: 80px;
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+  box-shadow: 20px 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-nav-drawer.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.mobile-nav-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: all 0.25s ease;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.5rem;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link--active {
+  color: #ffffff;
+  padding-left: 5px;
+}
+
+.mobile-nav-link--talent {
+  color: #c4ff00 !important;
+}
+
+.mobile-nav-cta {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.mobile-nav-cta .cta-button {
+  width: 100%;
+}
+
+/* ── Tablet: 1024px and below ───────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* Tablet Nav Adjustment */
+  .global-nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-center {
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+  }
+
+  .company-slogan {
+    display: none;
+  }
+
+  .nav-badge {
+    display: none;
+  }
+
+  /* Section 1 – Hero */
+  #section-1 .middle {
+    flex-direction: column;
+    gap: 2rem;
+    padding-inline: 5vw;
+  }
+
+  #section-1 .middle .left,
+  #section-1 .middle .right {
+    width: 100%;
+  }
+
+  #section-1 .middle .left {
+    justify-content: flex-start;
+    padding-block: 4rem 0;
+  }
+
+  #section-1 .middle .display-title {
+    font-size: 4rem;
+    text-align: left;
+  }
+
+  #section-1 .bottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-inline: 5vw;
+  }
+
+  #section-1 .bottom .left {
+    display: none;
+  }
+
+  #section-1 .bottom .right {
+    width: 100%;
+  }
+
+  /* Section 2 – Focus */
+  .focus-content {
+    width: 90vw !important;
+    margin-left: 5vw !important;
+    padding-top: 18vh !important;
+  }
+
+  .focus-content h2 {
+    font-size: 3rem !important;
+  }
+
+  .build-container {
+    margin-left: 5vw !important;
+    width: 90vw !important;
+  }
+
+  .build-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Section 3 – Products (hover list) */
+  #section-3 .titles {
+    padding-left: 5vw;
+  }
+
+  #section-3 .titles .title h2 {
+    font-size: 3.5rem;
+  }
+
+  /* Section 4 – Quote */
+  .vision-quote {
+    width: 85vw !important;
+    padding-top: 25vh !important;
+  }
+
+  .vision-quote h2 {
+    font-size: 2.5rem !important;
+  }
+
+  /* Section 5 – Technology */
+  .tech-content {
+    width: 90vw !important;
+    margin-left: 5vw !important;
+    padding-top: 15vh !important;
+  }
+
+  .tech-content h2 {
+    font-size: 3rem !important;
+  }
+
+  .foundation-container {
+    margin-left: 5vw !important;
+    width: 90vw !important;
+  }
+
+  .foundation-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Section Strategy */
+  .strategy-content {
+    width: 90vw !important;
+    margin-left: 5vw !important;
+  }
+
+  .strategy-content h2 {
+    font-size: 2.8rem !important;
+  }
+
+  .strategy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Talent Section */
+  .talent-container {
+    width: 90vw;
+  }
+
+  .talent-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .talent-title {
+    font-size: 3.5rem;
+  }
+
+  /* Companies Section */
+  .companies-container {
+    width: 90vw;
+  }
+
+  .companies-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .companies-title {
+    font-size: 3.5rem !important;
+  }
+
+  /* Contact */
+  .contact-container {
+    padding-left: 5vw;
+    max-width: 95vw;
+  }
+
+  .contact-title {
+    font-size: 4rem !important;
+  }
+
+  /* Office Map */
+  .office-map-section {
+    width: 90vw;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 3rem 5vw 2rem;
+  }
+
+  /* Modal */
+  .modal-box {
+    padding: 2.5rem;
+  }
+}
+
+/* ── Mobile: 768px and below ────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Nav */
+  .global-nav {
+    padding: 0.85rem 1.25rem;
+  }
+
+  .nav-center-wrapper {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-nav-overlay,
+  .mobile-nav-drawer {
+    display: flex;
+  }
+
+  .logo-image {
+    height: 34px;
+    width: 34px;
+  }
+
+  .company-name {
+    font-size: 0.95rem;
+  }
+
+  .company-slogan {
+    display: none;
+  }
+
+  /* Canvas — scale down on mobile, still show but smaller */
+  #canvas-elem {
+    opacity: 0.5 !important;
+  }
+
+  /* Section 1 – Hero */
+  #section-1 .middle .display-title {
+    font-size: 2.8rem;
+    line-height: 1.05;
+  }
+
+  #section-1 .bottom .right p {
+    font-size: 1.1rem !important;
+  }
+
+  .hero-tags {
+    gap: 0.5rem;
+  }
+
+  .tag-pill {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.9rem;
+  }
+
+  /* Section 2 – Focus */
+  .focus-content h2 {
+    font-size: 2.2rem !important;
+  }
+
+  .build-label {
+    font-size: 1.8rem !important;
+    margin-bottom: 40px !important;
+  }
+
+  .build-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .build-card {
+    padding: 2rem;
+  }
+
+  /* Section 3 – Products */
+  #section-3 .titles {
+    margin-block: 3rem;
+  }
+
+  #section-3 .titles .title {
+    gap: 2rem;
+    padding-block: 1.25rem;
+    opacity: 1;
+  }
+
+  #section-3 .titles .title h2 {
+    font-size: 2.2rem;
+  }
+
+  /* On touch: treat each title as always visible */
+  #section-3 .titles .title small {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  /* Section 4 – Quote */
+  .vision-quote h2 {
+    font-size: 1.8rem !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Section 5 */
+  .tech-content h2 {
+    font-size: 2.2rem !important;
+  }
+
+  .foundation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .foundation-card {
+    flex-direction: row;
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  /* Section Strategy */
+  .strategy-content h2 {
+    font-size: 2rem !important;
+  }
+
+  .strategy-column {
+    padding: 2rem;
+  }
+
+  /* Talent Section */
+  .talent-section {
+    padding-top: 10vh;
+    padding-bottom: 8vh;
+  }
+
+  .talent-title {
+    font-size: 2.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  .talent-cta-btn--hero {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  /* Companies Section */
+  .companies-title {
+    font-size: 2.5rem !important;
+  }
+
+  .companies-primary-btn {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  /* Contact */
+  .contact-title {
+    font-size: 3rem !important;
+  }
+
+  .contact-btn {
+    font-size: 1.1rem;
+  }
+
+  /* Office Map */
+  .office-map-section {
+    width: 92vw;
+    margin-top: 2.5rem;
+  }
+
+  .office-selector {
+    flex-wrap: wrap;
+  }
+
+  .office-tab {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.1rem;
+  }
+
+  .map-container {
+    height: 300px;
+  }
+
+  /* Footer */
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  /* Modal */
+  .modal-box {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.6rem;
+  }
+
+  /* Time slots grid */
+  .time-slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Small Mobile: 480px and below ─────────────────────── */
+@media (max-width: 480px) {
+
+  /* Nav */
+  .global-nav {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Section 1 */
+  #section-1 .middle {
+    padding-inline: 4vw;
+  }
+
+  #section-1 .middle .display-title {
+    font-size: 2.2rem;
+  }
+
+  #section-1 .middle .left {
+    padding-block: 3rem 0;
+  }
+
+  #section-1 .bottom {
+    padding-inline: 4vw;
+  }
+
+  #section-1 .bottom .right p {
+    font-size: 1rem !important;
+  }
+
+  /* Section 2 */
+  .focus-content {
+    padding-top: 14vh !important;
+  }
+
+  .focus-content h2 {
+    font-size: 1.9rem !important;
+  }
+
+  .build-label {
+    font-size: 1.5rem !important;
+  }
+
+  /* Section 3 */
+  #section-3 .titles .title h2 {
+    font-size: 1.8rem;
+  }
+
+  /* Section 4 */
+  .vision-quote {
+    padding-top: 18vh !important;
+  }
+
+  .vision-quote h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Section 5 */
+  .tech-content h2 {
+    font-size: 1.9rem !important;
+  }
+
+  /* Strategy */
+  .strategy-content h2 {
+    font-size: 1.7rem !important;
+  }
+
+  /* Talent */
+  .talent-title {
+    font-size: 2rem;
+  }
+
+  /* Companies */
+  .companies-title {
+    font-size: 2rem !important;
+  }
+
+  /* Contact */
+  .contact-title {
+    font-size: 2.2rem !important;
+    line-height: 1.1 !important;
+  }
+
+  .contact-btn {
+    font-size: 1rem;
+    gap: 10px;
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Time slots */
+  .time-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Map */
+  .map-container {
+    height: 250px;
+  }
+}
+
+/* ── Touch device: disable hover-only interactions ──────── */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Always show product section titles at full opacity on touch */
+  #section-3 .titles .title {
+    opacity: 1 !important;
+  }
+
+  /* Disable translateY hover on cards (replaced by tap feedback) */
+  .build-card:hover,
+  .foundation-card:hover,
+  .talent-feature-card:hover,
+  .companies-value-card:hover {
+    transform: none;
+  }
+
+  /* Active (tap) state instead */
+  .build-card:active,
+  .foundation-card:active,
+  .talent-feature-card:active,
+  .companies-value-card:active {
+    transform: scale(0.98);
+  }
+
+  /* Disable 3D canvas pointer events on touch */
+  #canvas-elem {
+    pointer-events: none !important;
+  }
+}
+
+/* ── Landscape phone: special adjustments ───────────────── */
+@media (max-width: 768px) and (orientation: landscape) {
+
+  section {
+    min-height: 120vw;
+  }
+
+  #section-1 .middle .left {
+    padding-block: 2rem 0;
+  }
+
+  #section-1 .middle .display-title {
+    font-size: 2rem;
+  }
+
+  .talent-section,
+  .companies-section {
+    padding-top: 8vh;
+    padding-bottom: 6vh;
+  }
+
+  .map-container {
+    height: 220px;
+  }
+}

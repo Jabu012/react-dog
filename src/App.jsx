@@ -35,6 +35,7 @@ const pathToSection = {
 function App() {
   const [activeSection, setActiveSection] = useState('section-1')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     companyName: '',
@@ -105,6 +106,7 @@ function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' })
     const path = sectionToPath[sectionId]
     if (path) history.pushState(null, '', path)
+    setIsMobileNavOpen(false)
   }
 
   useEffect(() => {
@@ -186,8 +188,34 @@ function App() {
           </div>
           <div className="nav-right">
             <button className="cta-button" onClick={() => setIsModalOpen(true)}>Get Started</button>
+            <button
+              id="hamburger-btn"
+              className={`hamburger-btn${isMobileNavOpen ? ' open' : ''}`}
+              aria-label={isMobileNavOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
           </div>
         </nav>
+        {/* Mobile Nav Drawer */}
+        <div className={`mobile-nav-overlay${isMobileNavOpen ? ' open' : ''}`} onClick={() => setIsMobileNavOpen(false)}></div>
+        <div className={`mobile-nav-drawer${isMobileNavOpen ? ' open' : ''}`}>
+          <nav className="mobile-nav-links">
+            <a href="/Overview" onClick={(e) => handleNavClick(e, 'section-1')} className={`mobile-nav-link${activeSection === 'section-1' ? ' mobile-nav-link--active' : ''}`}>Overview</a>
+            <a href="/Focus" onClick={(e) => handleNavClick(e, 'section-2')} className={`mobile-nav-link${activeSection === 'section-2' ? ' mobile-nav-link--active' : ''}`}>Focus</a>
+            <a href="/Products" onClick={(e) => handleNavClick(e, 'section-3')} className={`mobile-nav-link${activeSection === 'section-3' ? ' mobile-nav-link--active' : ''}`}>Products</a>
+            <a href="/Technology" onClick={(e) => handleNavClick(e, 'section-5')} className={`mobile-nav-link${['section-4','section-5','section-strategy'].includes(activeSection) ? ' mobile-nav-link--active' : ''}`}>Technology</a>
+            <a href="/For-Companies" onClick={(e) => handleNavClick(e, 'section-companies')} className={`mobile-nav-link${activeSection === 'section-companies' ? ' mobile-nav-link--active' : ''}`}>For Companies</a>
+            <a href="/Contact" onClick={(e) => handleNavClick(e, 'section-6')} className={`mobile-nav-link${activeSection === 'section-6' ? ' mobile-nav-link--active' : ''}`}>Contact</a>
+            <a href="/Careers" onClick={(e) => handleNavClick(e, 'section-talent')} className={`mobile-nav-link mobile-nav-link--talent${activeSection === 'section-talent' ? ' mobile-nav-link--active' : ''}`}>Careers ↗</a>
+            <div className="mobile-nav-cta">
+              <button className="cta-button" onClick={() => { setIsModalOpen(true); setIsMobileNavOpen(false); }}>Get Started</button>
+            </div>
+          </nav>
+        </div>
         <div className="images">
           <img id='background-l' src="/background-l.png" alt="Sovereign AI Infrastructure Background" />
           <img id='branches_diffuse' src="/branches_diffuse.jpeg" alt="Deep Branch research visualization diffuse map" />
