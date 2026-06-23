@@ -203,6 +203,12 @@ function App() {
         {/* Mobile Nav Drawer */}
         <div className={`mobile-nav-overlay${isMobileNavOpen ? ' open' : ''}`} onClick={() => setIsMobileNavOpen(false)}></div>
         <div className={`mobile-nav-drawer${isMobileNavOpen ? ' open' : ''}`}>
+          
+          <div className="mobile-nav-header">
+            <img src="/logo.png" alt="Clever Names Logo" className="mobile-nav-logo" />
+            <span className="mobile-nav-brand">Clever Names</span>
+          </div>
+
           <nav className="mobile-nav-links">
             <a href="/Overview" onClick={(e) => handleNavClick(e, 'section-1')} className={`mobile-nav-link${activeSection === 'section-1' ? ' mobile-nav-link--active' : ''}`}>Overview</a>
             <a href="/Focus" onClick={(e) => handleNavClick(e, 'section-2')} className={`mobile-nav-link${activeSection === 'section-2' ? ' mobile-nav-link--active' : ''}`}>Focus</a>
@@ -210,11 +216,22 @@ function App() {
             <a href="/Technology" onClick={(e) => handleNavClick(e, 'section-5')} className={`mobile-nav-link${['section-4','section-5','section-strategy'].includes(activeSection) ? ' mobile-nav-link--active' : ''}`}>Technology</a>
             <a href="/For-Companies" onClick={(e) => handleNavClick(e, 'section-companies')} className={`mobile-nav-link${activeSection === 'section-companies' ? ' mobile-nav-link--active' : ''}`}>For Companies</a>
             <a href="/Contact" onClick={(e) => handleNavClick(e, 'section-6')} className={`mobile-nav-link${activeSection === 'section-6' ? ' mobile-nav-link--active' : ''}`}>Contact</a>
-            <a href="/Careers" onClick={(e) => handleNavClick(e, 'section-talent')} className={`mobile-nav-link mobile-nav-link--talent${activeSection === 'section-talent' ? ' mobile-nav-link--active' : ''}`}>Careers ↗</a>
+            <a href="/Careers" onClick={(e) => handleNavClick(e, 'section-talent')} className={`mobile-nav-link mobile-nav-link--talent${activeSection === 'section-talent' ? ' mobile-nav-link--active' : ''}`}>Careers</a>
+            
             <div className="mobile-nav-cta">
               <button className="cta-button" onClick={() => { setIsModalOpen(true); setIsMobileNavOpen(false); }}>Get Started</button>
             </div>
           </nav>
+
+          <div className="mobile-nav-footer">
+            <p className="mobile-nav-tagline">Africa's Sovereign AI Infrastructure</p>
+            <div className="mobile-nav-socials">
+              <a href="#" aria-label="X (Twitter)"><i className="ri-twitter-x-line"></i></a>
+              <a href="#" aria-label="LinkedIn"><i className="ri-linkedin-fill"></i></a>
+              <a href="#" aria-label="GitHub"><i className="ri-github-fill"></i></a>
+            </div>
+          </div>
+          
         </div>
         <div className="images">
           <img id='background-l' src="/background-l.png" alt="Sovereign AI Infrastructure Background" />
