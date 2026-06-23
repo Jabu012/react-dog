@@ -697,7 +697,7 @@ function App() {
                     <textarea
                       id="message"
                       required
-                      rows="4"
+                      rows="2"
                       placeholder="Tell us briefly about your operational data and business focus..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
